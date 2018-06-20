@@ -3,7 +3,8 @@ package com.example.news1.news1.models;
 import java.util.List;
 
 public class NewsModel {
-
+    private String status;
+    private String totalResults;
     private List<source> sourceList;
     private String author;
     private String title;
@@ -11,6 +12,22 @@ public class NewsModel {
     private String url;
     private String urlToImage;
     private String publishedAt;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTotalResults() {
+        return totalResults;
+    }
+
+    public void setTotalResults(String totalResults) {
+        this.totalResults = totalResults;
+    }
 
     public List<source> getSourceList() {
         return sourceList;
