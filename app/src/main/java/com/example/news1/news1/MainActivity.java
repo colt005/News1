@@ -29,12 +29,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.news1.news1.R.id.action_settings;
+import static com.example.news1.news1.R.id.action_refresh;
 import static com.example.news1.news1.R.id.title;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvData;
+
     private ListView listView;
 
     @Override
@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         listView = (ListView) findViewById(R.id.lvNews);
 
 
-                new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
+               // new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
                 //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoList.txt");
     }
 
@@ -137,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<NewsModel> result) {
             super.onPostExecute(result);
+
+
 
             //TODO need to set datas to LIST
         }
