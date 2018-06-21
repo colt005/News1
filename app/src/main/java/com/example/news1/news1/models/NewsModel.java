@@ -3,6 +3,7 @@ package com.example.news1.news1.models;
 import java.util.List;
 
 public class NewsModel {
+
     private String status;
     private String totalResults;
     private List<source> sourceList;

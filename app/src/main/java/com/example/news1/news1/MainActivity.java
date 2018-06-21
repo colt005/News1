@@ -1,13 +1,20 @@
 package com.example.news1.news1;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -29,7 +36,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.Source;
+
 import static com.example.news1.news1.R.id.action_refresh;
+import static com.example.news1.news1.R.id.lvNews;
 import static com.example.news1.news1.R.id.title;
 
 public class MainActivity extends AppCompatActivity {
@@ -140,9 +150,76 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<NewsModel> result) {
             super.onPostExecute(result);
 
-
+            newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row, result);
+            listView.setAdapter(adapter);
 
             //TODO need to set datas to LIST
+        }
+    }
+
+    public class newsAdapter extends ArrayAdapter
+    {
+        private List<NewsModel> newsModelList;
+        private int resource;
+        private LayoutInflater inflator;
+
+        public newsAdapter(@NonNull Context context, int resource, @NonNull List<NewsModel> objects) {
+            super(context, resource, objects);
+            newsModelList = objects;
+            this.resource=resource;
+            inflator = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+            if (convertView == null){
+                convertView = inflator.inflate(resource,null);
+
+            }
+            ImageView ivIcon;
+            TextView tvTitle;
+            TextView tvDescription;
+            TextView tvAuthor;
+            TextView tvURL;
+            TextView tvPublishedAt;
+            TextView tvId;
+            TextView tvName;
+
+            ivIcon = (ImageView) findViewById(R.id.ivIcon);
+            tvTitle = (TextView) findViewById(R.id.tvTitle);
+            tvDescription = (TextView) findViewById(R.id.tvDescription);
+            tvAuthor = (TextView) findViewById(R.id.tvAuthor);
+            tvURL = (TextView) findViewById(R.id.tvURL);
+            tvPublishedAt = (TextView) findViewById(R.id.tvPublishedAt);
+            tvId = (TextView) findViewById(R.id.tvId);
+            tvName = (TextView) findViewById(R.id.tvName);
+
+            tvTitle.setText(newsModelList.get(position).getTitle());
+            tvDescription.setText(newsModelList.get(position).getDescription());
+            tvAuthor.setText(newsModelList.get(position).getAuthor());
+            tvURL.setText(newsModelList.get(position).getUrl());
+            tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
+            StringBuffer stringBufferid = new StringBuffer();
+            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
+                stringBufferid.append(Source.getId() + " ");
+
+            }
+            tvId.setText(stringBufferid.toString());
+            StringBuffer stringBuffername = new StringBuffer();
+            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
+                stringBuffername.append((Source.getName() + " "));
+
+            }
+            tvName.setText(stringBuffername.toString());
+
+
+
+            return convertView;
         }
     }
 
