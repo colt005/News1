@@ -102,18 +102,16 @@ public class MainActivity extends AppCompatActivity {
                     newsModel.setDescription(finalobject.getString("description"));
                     newsModel.setUrl(finalobject.getString("url"));
                     newsModel.setTitle(finalobject.getString("title"));
-                    newsModel.setUrlToImage(finalobject.getString("UrlToImage"));
+                    newsModel.setUrlToImage(finalobject.getString("urlToImage"));
                     newsModel.setPublishedAt(finalobject.getString("publishedAt"));
-                    List<NewsModel.source> sourceList = new ArrayList<>();
-                    for(int j = 0; j<finalobject.getJSONArray("source").length(); j++){
+                    JSONObject sourceobj = finalobject.getJSONObject("source");
+
 
                         NewsModel.source Source = new NewsModel.source();
-                        Source.setId(finalobject.getString("id"));
-                        Source.setName(finalobject.getString("name"));
-                        sourceList.add(Source);
+                        Source.setId(sourceobj.getString("id"));
+                        Source.setName(sourceobj.getString("name"));
 
-                    }
-                    newsModel.setSourceList(sourceList);
+
                     newsModelList.add(newsModel);
 
 
@@ -157,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class newsAdapter extends ArrayAdapter
+    public class newsAdapter extends ArrayAdapter<NewsModel>
     {
         private List<NewsModel> newsModelList;
         private int resource;
@@ -205,17 +203,18 @@ public class MainActivity extends AppCompatActivity {
             tvURL.setText(newsModelList.get(position).getUrl());
             tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
             StringBuffer stringBufferid = new StringBuffer();
-            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
-                stringBufferid.append(Source.getId() + " ");
 
-            }
-            tvId.setText(stringBufferid.toString());
-            StringBuffer stringBuffername = new StringBuffer();
-            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
-                stringBuffername.append((Source.getName() + " "));
-
-            }
-            tvName.setText(stringBuffername.toString());
+//            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
+//                stringBufferid.append(Source.getId() + " ");
+//
+//            }
+//            tvId.setText(stringBufferid.toString());
+//            StringBuffer stringBuffername = new StringBuffer();
+//            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
+//                stringBuffername.append((Source.getName() + " "));
+//
+//            }
+//            tvName.setText(stringBuffername.toString());
 
 
 

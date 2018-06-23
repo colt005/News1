@@ -6,7 +6,6 @@ public class NewsModel {
 
     private String status;
     private String totalResults;
-    private List<source> sourceList;
     private String author;
     private String title;
     private String description;
@@ -26,17 +25,10 @@ public class NewsModel {
         return totalResults;
     }
 
-    public void setTotalResults(String totalResults) {
+   public void setTotalResults(String totalResults) {
         this.totalResults = totalResults;
     }
 
-    public List<source> getSourceList() {
-        return sourceList;
-    }
-
-    public void setSourceList(List<source> sourceList) {
-        this.sourceList = sourceList;
-    }
 
     public String getAuthor() {
         return author;
