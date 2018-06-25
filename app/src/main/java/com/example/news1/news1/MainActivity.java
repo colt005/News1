@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import javax.xml.transform.Source;
 import static com.example.news1.news1.R.id.action_refresh;
 import static com.example.news1.news1.R.id.lvNews;
 import static com.example.news1.news1.R.id.title;
+import static com.example.news1.news1.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(activity_main);
 
 
 
@@ -72,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         protected List<NewsModel> doInBackground(String... urls) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-
             try {
+
                 URL url = new URL(urls[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -113,18 +115,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                     newsModelList.add(newsModel);
-
+                    Log.d("NewsModel",newsModelList.toString());
 
                 }
                 return newsModelList;
 
 
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             } finally {
 
@@ -179,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView = inflator.inflate(resource,null);
 
             }
-            ImageView ivIcon;
+     //       ImageView ivIcon;
             TextView tvTitle;
             TextView tvDescription;
             TextView tvAuthor;
@@ -188,36 +186,22 @@ public class MainActivity extends AppCompatActivity {
             TextView tvId;
             TextView tvName;
 
-            ivIcon = (ImageView) findViewById(R.id.ivIcon);
-            tvTitle = (TextView) findViewById(R.id.tvTitle);
-            tvDescription = (TextView) findViewById(R.id.tvDescription);
-            tvAuthor = (TextView) findViewById(R.id.tvAuthor);
-            tvURL = (TextView) findViewById(R.id.tvURL);
-            tvPublishedAt = (TextView) findViewById(R.id.tvPublishedAt);
-            tvId = (TextView) findViewById(R.id.tvId);
-            tvName = (TextView) findViewById(R.id.tvName);
+     //       ivIcon = (ImageView) findViewById(R.id.ivIcon);
+            tvTitle = findViewById(R.id.tvTitle);
+            tvDescription =  findViewById(R.id.tvDescription);
+            tvAuthor =  findViewById(R.id.tvAuthor);
+            tvURL =  findViewById(R.id.tvURL);
+            tvPublishedAt =  findViewById(R.id.tvPublishedAt);
+            tvId =  findViewById(R.id.tvId);
+            tvName =  findViewById(R.id.tvName);
 
             tvTitle.setText(newsModelList.get(position).getTitle());
             tvDescription.setText(newsModelList.get(position).getDescription());
             tvAuthor.setText(newsModelList.get(position).getAuthor());
             tvURL.setText(newsModelList.get(position).getUrl());
             tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
-            StringBuffer stringBufferid = new StringBuffer();
-
-//            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
-//                stringBufferid.append(Source.getId() + " ");
-//
-//            }
-//            tvId.setText(stringBufferid.toString());
-//            StringBuffer stringBuffername = new StringBuffer();
-//            for (NewsModel.source Source : newsModelList.get(position).getSourceList()){
-//                stringBuffername.append((Source.getName() + " "));
-//
-//            }
-//            tvName.setText(stringBuffername.toString());
-
-
-
+           tvId.setText(newsModelList.get(position).toString());
+            tvName.setText(newsModelList.get(position).toString());
             return convertView;
         }
     }
