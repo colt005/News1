@@ -185,8 +185,13 @@ public class MainActivity extends AppCompatActivity {
             TextView tvPublishedAt;
             TextView tvId;
             TextView tvName;
+            
+            // When you are trying to get views, they should be from relevant view group.
+            // It means, if you are retrieving view from activity, you can directly use findViewById() method.
+            // But here, you are trying to inflate a row into the list and views are in your row viewGroup.
+            // Hence your retrieval reference must be from inflated view.
 
-     //       ivIcon = (ImageView) findViewById(R.id.ivIcon);
+            //       ivIcon = (ImageView) findViewById(R.id.ivIcon);
             tvTitle = findViewById(R.id.tvTitle);
             tvDescription =  findViewById(R.id.tvDescription);
             tvAuthor =  findViewById(R.id.tvAuthor);
