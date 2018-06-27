@@ -2,5 +2,7 @@
     <string name="app_name">News1</string>
     <string name="action">:</string>
     <string name="action_settings">Settings</string>
+
     <string name="API_KEY">9973f0618b1f4f9483f05e9f95885a73</string>
+    <string name="action_refresh">Refresh</string>
 </resources>
