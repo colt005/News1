@@ -192,32 +192,30 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-
+            ViewHolder holder = null;
 
             if (convertView == null){
+                holder = new ViewHolder();
                 convertView = inflator.inflate(resource,null);
+                holder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+                holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+                holder.tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
+                holder.tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
+                holder.tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
+                holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
+                holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
+                holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
+                convertView.setTag(holder);
+            }else{
 
+                holder = (ViewHolder) convertView.getTag();
             }
-            ImageView ivIcon;
-            TextView tvTitle;
-            TextView tvDescription;
-            TextView tvAuthor;
-            TextView tvURL;
-            TextView tvPublishedAt;
-            TextView tvId;
-            TextView tvName;
 
 
-            ivIcon = (ImageView) findViewById(R.id.ivIcon);
-            tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-            tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
-            tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
-            tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
-            tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
-            tvId =  (TextView) convertView.findViewById(R.id.tvId);
-            tvName =  (TextView) convertView.findViewById(R.id.tvName);
+
+
             final ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
-            ImageLoader.getInstance().displayImage(newsModelList.get(position).getUrlToImage(), ivIcon, new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(newsModelList.get(position).getUrlToImage(), holder.ivIcon, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -245,15 +243,29 @@ public class MainActivity extends AppCompatActivity {
             }); // Default options will be used
 
 
-            tvTitle.setText(newsModelList.get(position).getTitle());
-            tvDescription.setText(newsModelList.get(position).getDescription());
-            tvAuthor.setText(newsModelList.get(position).getAuthor());
-            tvURL.setText(newsModelList.get(position).getUrl());
-            tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
-           tvId.setText(newsModelList.get(position).toString());
-            tvName.setText(newsModelList.get(position).toString());
+            holder.tvTitle.setText(newsModelList.get(position).getTitle());
+            holder.tvDescription.setText(newsModelList.get(position).getDescription());
+            holder.tvAuthor.setText(newsModelList.get(position).getAuthor());
+            holder.tvURL.setText(newsModelList.get(position).getUrl());
+            holder.tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
+            holder.tvId.setText(newsModelList.get(position).toString());
+            holder.tvName.setText(newsModelList.get(position).toString());
             return convertView;
         }
+
+        class ViewHolder{
+
+            private ImageView ivIcon;
+            private TextView tvTitle;
+            private TextView tvDescription;
+            private TextView tvAuthor;
+            private TextView tvURL;
+            private TextView tvPublishedAt;
+            private TextView tvId;
+            private TextView tvName;
+
+        }
+
     }
 
 
