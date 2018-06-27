@@ -187,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
             TextView tvName;
 
      //       ivIcon = (ImageView) findViewById(R.id.ivIcon);
-            tvTitle = findViewById(R.id.tvTitle);
-            tvDescription =  findViewById(R.id.tvDescription);
-            tvAuthor =  findViewById(R.id.tvAuthor);
-            tvURL =  findViewById(R.id.tvURL);
-            tvPublishedAt =  findViewById(R.id.tvPublishedAt);
-            tvId =  findViewById(R.id.tvId);
-            tvName =  findViewById(R.id.tvName);
+            tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
+            tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
+            tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
+            tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
+            tvId =  (TextView) convertView.findViewById(R.id.tvId);
+            tvName =  (TextView) convertView.findViewById(R.id.tvName);
 
             tvTitle.setText(newsModelList.get(position).getTitle());
             tvDescription.setText(newsModelList.get(position).getDescription());
