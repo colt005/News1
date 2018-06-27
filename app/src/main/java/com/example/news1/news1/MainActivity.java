@@ -1,6 +1,7 @@
 package com.example.news1.news1;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,11 +18,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news1.news1.models.NewsModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
+
+        // Create default options which will be used for every
+//  displayImage(...) call if no options will be passed to this method
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
 
 
 
@@ -106,16 +124,18 @@ public class MainActivity extends AppCompatActivity {
                     newsModel.setTitle(finalobject.getString("title"));
                     newsModel.setUrlToImage(finalobject.getString("urlToImage"));
                     newsModel.setPublishedAt(finalobject.getString("publishedAt"));
-                    JSONObject sourceobj = finalobject.getJSONObject("source");
 
+                    JSONObject sourceobj = finalobject.getJSONObject("String");
+                    newsModel.setId(sourceobj.getString("id"));
+                    newsModel.setName(sourceobj.getString("name"));
 
-                        NewsModel.source Source = new NewsModel.source();
-                        Source.setId(sourceobj.getString("id"));
-                        Source.setName(sourceobj.getString("name"));
+//                        NewsModel.source Source = new NewsModel.source();
+//                        Source.setId(sourceobj.getString("id"));
+//                        Source.setName(sourceobj.getString("name"));
 
 
                     newsModelList.add(newsModel);
-                    Log.d("NewsModel",newsModelList.toString());
+//                    Log.d("NewsModel",newsModelList.toString());
 
                 }
                 return newsModelList;
@@ -173,11 +193,12 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
 
+
             if (convertView == null){
                 convertView = inflator.inflate(resource,null);
 
             }
-     //       ImageView ivIcon;
+            ImageView ivIcon;
             TextView tvTitle;
             TextView tvDescription;
             TextView tvAuthor;
@@ -186,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
             TextView tvId;
             TextView tvName;
 
-     //       ivIcon = (ImageView) findViewById(R.id.ivIcon);
+
+            ivIcon = (ImageView) findViewById(R.id.ivIcon);
             tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
             tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
@@ -194,6 +216,34 @@ public class MainActivity extends AppCompatActivity {
             tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
             tvId =  (TextView) convertView.findViewById(R.id.tvId);
             tvName =  (TextView) convertView.findViewById(R.id.tvName);
+            final ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
+            ImageLoader.getInstance().displayImage(newsModelList.get(position).getUrlToImage(), ivIcon, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    progressBar.setVisibility(View.GONE);
+
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    progressBar.setVisibility(View.GONE);
+
+
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    progressBar.setVisibility(View.GONE);
+
+
+                }
+            }); // Default options will be used
+
 
             tvTitle.setText(newsModelList.get(position).getTitle());
             tvDescription.setText(newsModelList.get(position).getDescription());

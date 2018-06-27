@@ -78,7 +78,6 @@ public class NewsModel {
         this.publishedAt = publishedAt;
     }
 
-    public static class source{
 
         private String id;
         private String name;
@@ -98,7 +97,7 @@ public class NewsModel {
         public void setName(String name) {
             this.name = name;
         }
-    }
+
 
 
 }
