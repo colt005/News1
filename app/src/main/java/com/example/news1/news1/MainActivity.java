@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 .defaultDisplayImageOptions(defaultOptions)
                 .build();
         ImageLoader.getInstance().init(config); // Do it on Application start
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.ic_launcher_background) // resource or drawable
+                .build();
 
 
 
@@ -125,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                     newsModel.setUrlToImage(finalobject.getString("urlToImage"));
                     newsModel.setPublishedAt(finalobject.getString("publishedAt"));
 
-                    JSONObject sourceobj = finalobject.getJSONObject("String");
-                    newsModel.setId(sourceobj.getString("id"));
-                    newsModel.setName(sourceobj.getString("name"));
+//                    JSONObject sourceobj = finalobject.getJSONObject("String");
+//                    newsModel.setId(sourceobj.getString("id"));
+//                    newsModel.setName(sourceobj.getString("name"));
 
 //                        NewsModel.source Source = new NewsModel.source();
 //                        Source.setId(sourceobj.getString("id"));
@@ -203,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 holder.tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
                 holder.tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
                 holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
-                holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
-                holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
+               // holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
+                //holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
                 convertView.setTag(holder);
             }else{
 
@@ -215,6 +218,14 @@ public class MainActivity extends AppCompatActivity {
 
 
             final ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
+
+
+
+            holder.tvTitle.setText(newsModelList.get(position).getTitle());
+            holder.tvDescription.setText(newsModelList.get(position).getDescription());
+            holder.tvAuthor.setText(newsModelList.get(position).getAuthor());
+            holder.tvURL.setText(newsModelList.get(position).getUrl());
+            holder.tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
             ImageLoader.getInstance().displayImage(newsModelList.get(position).getUrlToImage(), holder.ivIcon, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
@@ -223,7 +234,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
+
 
                 }
 
@@ -240,16 +252,13 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-            }); // Default options will be used
+            });
 
 
-            holder.tvTitle.setText(newsModelList.get(position).getTitle());
-            holder.tvDescription.setText(newsModelList.get(position).getDescription());
-            holder.tvAuthor.setText(newsModelList.get(position).getAuthor());
-            holder.tvURL.setText(newsModelList.get(position).getUrl());
-            holder.tvPublishedAt.setText(newsModelList.get(position).getPublishedAt());
-            holder.tvId.setText(newsModelList.get(position).toString());
-            holder.tvName.setText(newsModelList.get(position).toString());
+
+            // Default options will be used
+          //  holder.tvId.setText(newsModelList.get(position).toString());
+          //  holder.tvName.setText(newsModelList.get(position).toString());
             return convertView;
         }
 
@@ -261,8 +270,8 @@ public class MainActivity extends AppCompatActivity {
             private TextView tvAuthor;
             private TextView tvURL;
             private TextView tvPublishedAt;
-            private TextView tvId;
-            private TextView tvName;
+          //  private TextView tvId;
+           // private TextView tvName;
 
         }
 
