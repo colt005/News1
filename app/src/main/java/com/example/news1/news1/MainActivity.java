@@ -128,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
                     newsModel.setUrlToImage(finalobject.getString("urlToImage"));
                     newsModel.setPublishedAt(finalobject.getString("publishedAt"));
 
-//                    JSONObject sourceobj = finalobject.getJSONObject("String");
-//                    newsModel.setId(sourceobj.getString("id"));
-//                    newsModel.setName(sourceobj.getString("name"));
+                    JSONObject sourceobj = finalobject.getJSONObject("source");
+          //          newsModel.setId(sourceobj.getString("id"));
+          //          newsModel.setName(sourceobj.getString("name"));
 
-//                        NewsModel.source Source = new NewsModel.source();
-//                        Source.setId(sourceobj.getString("id"));
-//                        Source.setName(sourceobj.getString("name"));
+                       NewsModel.source Source = new NewsModel.source();
+                        Source.setId(sourceobj.getString("id"));
+                        Source.setName(sourceobj.getString("name"));
 
 
                     newsModelList.add(newsModel);
