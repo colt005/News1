@@ -131,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
 //                    newsModel.setPublishedAt(finalobject.getString("publishedAt"));
 //
 //                    JSONObject sourceobj = finalobject.getJSONObject("source");
-//          //          newsModel.setId(sourceobj.getString("id"));
-//          //          newsModel.setName(sourceobj.getString("name"));
+//
 //
 //                       NewsModel.source Source = new NewsModel.source();
 //                        Source.setId(sourceobj.getString("id"));
@@ -175,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row, result);
             listView.setAdapter(adapter);
 
-            //TODO need to set datas to LIST
         }
     }
 
