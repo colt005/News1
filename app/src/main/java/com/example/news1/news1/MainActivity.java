@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news1.news1.models.NewsModel;
+import com.example.news1.news1.models.NewsModel.Source;
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -44,7 +46,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.Source;
 
 import static com.example.news1.news1.R.id.action_refresh;
 import static com.example.news1.news1.R.id.lvNews;
@@ -115,29 +116,31 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray parentarray = parentobject.getJSONArray("articles");
 
                 List<NewsModel> newsModelList = new ArrayList<>();
-
+                Gson gson = new Gson();
                 for(int i=0;i<parentarray.length();i++) {
-                    NewsModel newsModel = new NewsModel();
+
                     JSONObject finalobject = parentarray.getJSONObject(i); //to fetch objects from articles
+                    NewsModel newsModel = gson.fromJson(finalobject.toString(),NewsModel.class);
 
 
-                    newsModel.setAuthor(finalobject.getString("author"));
-                    newsModel.setDescription(finalobject.getString("description"));
-                    newsModel.setUrl(finalobject.getString("url"));
-                    newsModel.setTitle(finalobject.getString("title"));
-                    newsModel.setUrlToImage(finalobject.getString("urlToImage"));
-                    newsModel.setPublishedAt(finalobject.getString("publishedAt"));
-
-                    JSONObject sourceobj = finalobject.getJSONObject("source");
-          //          newsModel.setId(sourceobj.getString("id"));
-          //          newsModel.setName(sourceobj.getString("name"));
-
-                       NewsModel.source Source = new NewsModel.source();
-                        Source.setId(sourceobj.getString("id"));
-                        Source.setName(sourceobj.getString("name"));
+//                    newsModel.setAuthor(finalobject.getString("author"));
+//                    newsModel.setDescription(finalobject.getString("description"));
+//                    newsModel.setUrl(finalobject.getString("url"));
+//                    newsModel.setTitle(finalobject.getString("title"));
+//                    newsModel.setUrlToImage(finalobject.getString("urlToImage"));
+//                    newsModel.setPublishedAt(finalobject.getString("publishedAt"));
+//
+//                    JSONObject sourceobj = finalobject.getJSONObject("source");
+//          //          newsModel.setId(sourceobj.getString("id"));
+//          //          newsModel.setName(sourceobj.getString("name"));
+//
+//                       NewsModel.source Source = new NewsModel.source();
+//                        Source.setId(sourceobj.getString("id"));
+//                        Source.setName(sourceobj.getString("name"));
 
 
                     newsModelList.add(newsModel);
+
 //                    Log.d("NewsModel",newsModelList.toString());
 
                 }
@@ -206,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
                 holder.tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
                 holder.tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
                 holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
-               // holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
-                //holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
+                holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
+                holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
                 convertView.setTag(holder);
             }else{
 
@@ -257,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             // Default options will be used
-          //  holder.tvId.setText(newsModelList.get(position).toString());
-          //  holder.tvName.setText(newsModelList.get(position).toString());
+            holder.tvId.setText(newsModelList.get(position).getSource().getId());
+            holder.tvName.setText(newsModelList.get(position).getSource().getName());
             return convertView;
         }
 
@@ -270,8 +273,8 @@ public class MainActivity extends AppCompatActivity {
             private TextView tvAuthor;
             private TextView tvURL;
             private TextView tvPublishedAt;
-          //  private TextView tvId;
-           // private TextView tvName;
+            private TextView tvId;
+            private TextView tvName;
 
         }
 

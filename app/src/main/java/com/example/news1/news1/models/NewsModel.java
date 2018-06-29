@@ -12,6 +12,15 @@ public class NewsModel {
     private String url;
     private String urlToImage;
     private String publishedAt;
+    private Source source;
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
 
     public String getStatus() {
         return status;
@@ -78,7 +87,7 @@ public class NewsModel {
         this.publishedAt = publishedAt;
     }
 
-    public static class source
+    public static class Source
 
     {
         private String id;
