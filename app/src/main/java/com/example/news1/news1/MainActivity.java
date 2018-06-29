@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ListView listView;
+    private String topic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +80,30 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
+        new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
         listView = (ListView) findViewById(R.id.lvNews);
 
 
                // new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
                 //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoList.txt");
+        Button btSearch = null;
+        btSearch = (Button) findViewById(R.id.btSearch);
+        EditText etSearch = null;
+        etSearch = (EditText) findViewById(R.id.etSearch);
+         topic = etSearch.getText().toString();
+
+        final EditText finalEtSearch = etSearch;
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topic = finalEtSearch.getText().toString();
+
+                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+
+
+            }
+        });
     }
 
 
@@ -292,7 +312,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_refresh:
-                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=us&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+                String fin = "https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73";
+                Log.i("Final",fin);
+             //   new JSONTask().execute("https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+
+              //  new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=us&apiKey=9973f0618b1f4f9483f05e9f95885a73");
                 break;
             case R.id.action_app:
                 break;
