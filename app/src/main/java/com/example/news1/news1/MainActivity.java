@@ -53,7 +53,7 @@ import static com.example.news1.news1.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private String total;
     private ListView listView;
     private String topic;
     private TextView tvRead;
@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 Gson gson1 = new Gson();
                 Parent parent =  gson1.fromJson(parentobject.toString(),Parent.class);
                 Log.e("Res",parent.getTotalResults());
+                total = parent.getTotalResults();
                 if(parent.getTotalResults().equals("0")){
                     Handler handler =  new Handler(MainActivity.this.getMainLooper());
                     handler.post( new Runnable(){
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<NewsModel> result) {
             super.onPostExecute(result);
+            Toast.makeText(MainActivity.this,"Total Results "+total,Toast.LENGTH_LONG).show();
 
             newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row2, result);
             listView.setAdapter(adapter);
@@ -369,19 +371,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-
-            case R.id.action_refresh:
-                String fin = "https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73";
-                Log.i("Final",fin);
-             //   new JSONTask().execute("https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-
-              //  new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=us&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-                break;
-            case R.id.action_app:
-                break;
-
-        }
+//        switch (item.getItemId()) {
+//
+//           // case R.id.action_refresh:
+//             //   String fin = "https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73";
+//               // Log.i("Final",fin);
+//             //   new JSONTask().execute("https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+//
+//              //  new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=us&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+//                //break;
+//            //case R.id.action_app:
+//              //  break;
+//
+//        }
 
         return super.onOptionsItemSelected(item);
     }
