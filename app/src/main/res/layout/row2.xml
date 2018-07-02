@@ -45,15 +45,16 @@
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:text="Description" />
 
     <TextView
         android:id="@+id/tvRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="READ"
         android:textAllCaps="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 </LinearLayout>

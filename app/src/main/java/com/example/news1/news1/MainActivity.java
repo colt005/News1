@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
     private String topic;
+    private TextView tvRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
                 topic = finalEtSearch.getText().toString();
 
                 new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+
+
+            }
+        });
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
             }
@@ -229,6 +240,11 @@ public class MainActivity extends AppCompatActivity {
                 holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
                 holder.tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
+
+                holder.tvDescription.setSingleLine(false);
+                holder.tvDescription.setEllipsize(TextUtils.TruncateAt.END);
+                int n = 1; // the exact number of lines you want to display
+                holder.tvDescription.setLines(n);
                  //holder.tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
                // holder.tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
                // holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
@@ -287,6 +303,8 @@ public class MainActivity extends AppCompatActivity {
             //holder.tvId.setText(newsModelList.get(position).getSource().getId());
             holder.tvName.setText(newsModelList.get(position).getSource().getName());
             return convertView;
+
+
         }
 
         class ViewHolder{
@@ -332,4 +350,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
