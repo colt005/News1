@@ -1,11 +1,8 @@
 package com.example.news1.news1.models;
 
-import java.util.List;
-
 public class NewsModel {
 
-    private String status;
-    private String totalResults;
+
     private String author;
     private String title;
     private String description;
@@ -20,22 +17,6 @@ public class NewsModel {
 
     public void setSource(Source source) {
         this.source = source;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTotalResults() {
-        return totalResults;
-    }
-
-   public void setTotalResults(String totalResults) {
-        this.totalResults = totalResults;
     }
 
 

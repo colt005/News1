@@ -3,11 +3,11 @@ package com.example.news1.news1;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,12 +22,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Switch;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news1.news1.models.NewsModel;
-import com.example.news1.news1.models.NewsModel.Source;
+import com.example.news1.news1.models.Parent;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,15 +44,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import static com.example.news1.news1.R.id.action_refresh;
-import static com.example.news1.news1.R.id.lvNews;
-import static com.example.news1.news1.R.id.title;
 import static com.example.news1.news1.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
@@ -90,23 +86,40 @@ public class MainActivity extends AppCompatActivity {
 
                // new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
                 //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoList.txt");
-        Button btSearch = null;
-        btSearch = (Button) findViewById(R.id.btSearch);
-        EditText etSearch = null;
-        etSearch = (EditText) findViewById(R.id.etSearch);
-         topic = etSearch.getText().toString();
-
-        final EditText finalEtSearch = etSearch;
-        btSearch.setOnClickListener(new View.OnClickListener() {
+       // Button btSearch = null;
+      //  btSearch = (Button) findViewById(R.id.btSearch);
+       // EditText etSearch = null;
+      //  etSearch = (EditText) findViewById(R.id.etSearch);
+       //  topic = etSearch.getText().toString();
+        SearchView svTopic;
+        svTopic = (SearchView) findViewById(R.id.svTopic);
+        svTopic.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
-                topic = finalEtSearch.getText().toString();
-
+            public boolean onQueryTextSubmit(String s) {
+                String topic = s;
                 new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+                return true;
+            }
 
-
+            @Override
+            public boolean onQueryTextChange(String s) {
+                String topic = s;
+                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+                return true;
             }
         });
+
+//        final EditText finalEtSearch = etSearch;
+//        btSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                topic = finalEtSearch.getText().toString();
+//
+//                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+//
+//
+//            }
+//        });
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -144,9 +157,27 @@ public class MainActivity extends AppCompatActivity {
 
                 String finaljson = buffer.toString();
 
+
                 JSONObject parentobject = new JSONObject(finaljson);
                 JSONArray parentarray = parentobject.getJSONArray("articles");
+                Gson gson1 = new Gson();
+                Parent parent =  gson1.fromJson(parentobject.toString(),Parent.class);
+                Log.e("Res",parent.getTotalResults());
+                if(parent.getTotalResults().equals("0")){
+                    Handler handler =  new Handler(MainActivity.this.getMainLooper());
+                    handler.post( new Runnable(){
+                        public void run(){
+                            Toast.makeText(MainActivity.this,"No Results",Toast.LENGTH_LONG).show();
+                         }
+                    });
 
+
+                }
+
+//                int results =  NewsModel.setTotalResults(parentobject.getInt("totalResults"));
+//                Log.e("Results", "Value : "+Float.toString(NewsModel.getTotalResults()));
+//                JSONObject results = parentobject.getJSONObject("totalResults");
+//                Log.e("Results",results.toString());
                 List<NewsModel> newsModelList = new ArrayList<>();
                 Gson gson = new Gson();
                 for(int i=0;i<parentarray.length();i++) {
@@ -156,8 +187,11 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList urllist = new ArrayList();
                     urllist.add(newsModel.getUrl());
                     Log.e("URLS",urllist.toString());
+                   
 
 
+
+                    
 //                    newsModel.setAuthor(finalobject.getString("author"));
 //                    newsModel.setDescription(finalobject.getString("description"));
 //                    newsModel.setUrl(finalobject.getString("url"));
@@ -241,10 +275,10 @@ public class MainActivity extends AppCompatActivity {
 
                 holder.tvDescription =  (TextView) convertView.findViewById(R.id.tvDescription);
 
-                holder.tvDescription.setSingleLine(false);
-                holder.tvDescription.setEllipsize(TextUtils.TruncateAt.END);
-                int n = 1; // the exact number of lines you want to display
-                holder.tvDescription.setLines(n);
+//                holder.tvDescription.setSingleLine(false);
+//                holder.tvDescription.setEllipsize(TextUtils.TruncateAt.END);
+//                int n = 1; // the exact number of lines you want to display
+//                holder.tvDescription.setLines(n);
                  //holder.tvAuthor =  (TextView) convertView.findViewById(R.id.tvAuthor);
                // holder.tvURL =  (TextView) convertView.findViewById(R.id.tvURL);
                // holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
