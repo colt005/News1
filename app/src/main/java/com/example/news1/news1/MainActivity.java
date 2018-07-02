@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         // Create default options which will be used for every
 //  displayImage(...) call if no options will be passed to this method
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
+                .cacheInMemory(false)
+                .cacheOnDisk(false)
                 .build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
        //  topic = etSearch.getText().toString();
         SearchView svTopic;
         svTopic = (SearchView) findViewById(R.id.svTopic);
+        svTopic.setQueryHint("Search Topic..");
         svTopic.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                //TODO On item click -> New Activity
 
             }
         });
