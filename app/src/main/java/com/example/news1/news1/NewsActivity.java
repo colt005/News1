@@ -12,7 +12,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class NewsActivity extends AppCompatActivity {
+import com.r0adkll.slidr.Slidr;
+
+
+public class NewsActivity extends AppCompatActivity{
 
     WebView wvBro;
 
@@ -27,6 +30,7 @@ public class NewsActivity extends AppCompatActivity {
         wvBro.setWebViewClient(new MyBrowser());
         wvBro.getSettings().setJavaScriptEnabled(true);
         wvBro.loadUrl(url);
+        Slidr.attach(this);
 
 
     }
