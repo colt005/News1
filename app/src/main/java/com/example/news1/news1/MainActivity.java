@@ -1,6 +1,8 @@
 package com.example.news1.news1;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -15,11 +17,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -50,9 +54,12 @@ import java.util.List;
 
 
 import static com.example.news1.news1.R.layout.activity_main;
+import static com.example.news1.news1.R.layout.activity_search_results;
 
 public class MainActivity extends AppCompatActivity {
-
+    final ArrayList urllist = new ArrayList();
+    SearchView svTopic;
+    private LinearLayout llSearchView;
     private String total;
     private ListView listView;
     private String topic;
@@ -91,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
        // EditText etSearch = null;
       //  etSearch = (EditText) findViewById(R.id.etSearch);
        //  topic = etSearch.getText().toString();
-        SearchView svTopic;
         svTopic = (SearchView) findViewById(R.id.svTopic);
         svTopic.setQueryHint("Search Topic..");
+
         svTopic.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -123,13 +130,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO On item click -> New Activity
 
-            }
-        });
     }
 
 
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject finalobject = parentarray.getJSONObject(i); //to fetch objects from articles
                     NewsModel newsModel = gson.fromJson(finalobject.toString(),NewsModel.class);
-                    ArrayList urllist = new ArrayList();
+                    //final ArrayList urllist = new ArrayList();
                     urllist.add(newsModel.getUrl());
                     Log.e("URLS",urllist.toString());
                    
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     newsModelList.add(newsModel);
 
 //                    Log.d("NewsModel",newsModelList.toString());
+
 
                 }
                 return newsModelList;
@@ -245,7 +247,62 @@ public class MainActivity extends AppCompatActivity {
 
             newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row2, result);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //TODO On item click -> New Activity
 
+                        Intent intent = new Intent(view.getContext(), NewsActivity.class);
+                        String uRl = (String) urllist.get(i);
+                        intent.putExtra("url", uRl);
+                        Log.e("urlll", (String) urllist.get(i));
+
+
+                }
+            });
+            llSearchView = (LinearLayout) findViewById(R.id.llSearchView);
+
+                listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+                    @Override
+
+                    public void onScrollStateChanged(AbsListView absListView, int i) {
+
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+                        if (i == 0) {
+                            // check if we reached the top or bottom of the list
+                            View v = listView.getChildAt(0);
+                            int offset = (v == null) ? 0 : v.getTop();
+                            if (offset == 0) {
+                                // reached the top: visible header and footer
+                                svTopic.setVisibility(View.VISIBLE);
+                                llSearchView.setVisibility(View.VISIBLE);
+
+                            }
+                        } else if (i2 - i1 == i) {
+                            View v = listView.getChildAt(i2 - 1);
+                            int offset = (v == null) ? 0 : v.getTop();
+                            if (offset == 0) {
+                                // reached the bottom: visible header and footer
+                                svTopic.setVisibility(View.VISIBLE);
+                                llSearchView.setVisibility(View.VISIBLE);
+
+
+                            }
+                        }else if (i2 - i1 > i){
+                            // on scrolling
+                            svTopic.setVisibility(View.GONE);
+                            llSearchView.setVisibility(View.GONE);
+
+
+                        }
+
+                    }
+                });
         }
     }
 
@@ -365,7 +422,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
         return true;
+
     }
 
     @Override
@@ -386,6 +451,11 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void read(View view){
+
+
+
     }
 
 

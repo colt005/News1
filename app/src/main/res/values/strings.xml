@@ -6,4 +6,6 @@
     <string name="API_KEY">9973f0618b1f4f9483f05e9f95885a73</string>
     <string name="action_refresh">Refresh</string>
     <string name="search_title">Search Topic</string>
+    <string name="search">Search</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 </resources>

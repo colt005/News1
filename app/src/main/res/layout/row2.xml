@@ -65,6 +65,8 @@
         android:paddingTop="8pt"
         android:text="READ"
         android:textAllCaps="true"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:clickable="true"
+        android:onClick="read"/>
 
 </LinearLayout>

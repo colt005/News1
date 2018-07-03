@@ -13,14 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:id="@+id/llSearchView">
 
 
         <SearchView
+            android:id="@+id/svTopic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/svTopic"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:keepScreenOn="true"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <ListView
