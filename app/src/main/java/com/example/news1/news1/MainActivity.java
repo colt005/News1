@@ -59,7 +59,6 @@ import static com.example.news1.news1.R.layout.activity_search_results;
 public class MainActivity extends AppCompatActivity {
     final ArrayList urllist = new ArrayList();
     SearchView svTopic;
-    private LinearLayout llSearchView;
     private String total;
     private ListView listView;
     private String topic;
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         // Create default options which will be used for every
 //  displayImage(...) call if no options will be passed to this method
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(false)
-                .cacheOnDisk(false)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
                 .build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
@@ -247,20 +246,35 @@ public class MainActivity extends AppCompatActivity {
 
             newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row2, result);
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //TODO On item click -> New Activity
-
+            Handler handler =  new Handler(MainActivity.this.getMainLooper());
+            handler.post( new Runnable(){
+                public void run(){
+                   listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                       @Override
+                       public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent intent = new Intent(view.getContext(), NewsActivity.class);
                         String uRl = (String) urllist.get(i);
                         intent.putExtra("url", uRl);
-                        Log.e("urlll", (String) urllist.get(i));
-
-
+                        Log.e("urllldsf", (String) urllist.get(i));
+                        startActivity(intent);
+                       }
+                   });
                 }
             });
-            llSearchView = (LinearLayout) findViewById(R.id.llSearchView);
+
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    //TODO On item click -> New Activity
+//
+//                        Intent intent = new Intent(view.getContext(), NewsActivity.class);
+//                        String uRl = (String) urllist.get(i);
+//                        intent.putExtra("url", uRl);
+//                        Log.e("urlll", (String) urllist.get(i));
+//
+//
+//                }
+//            });
 
                 listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -280,7 +294,6 @@ public class MainActivity extends AppCompatActivity {
                             if (offset == 0) {
                                 // reached the top: visible header and footer
                                 svTopic.setVisibility(View.VISIBLE);
-                                llSearchView.setVisibility(View.VISIBLE);
 
                             }
                         } else if (i2 - i1 == i) {
@@ -289,14 +302,12 @@ public class MainActivity extends AppCompatActivity {
                             if (offset == 0) {
                                 // reached the bottom: visible header and footer
                                 svTopic.setVisibility(View.VISIBLE);
-                                llSearchView.setVisibility(View.VISIBLE);
 
 
                             }
                         }else if (i2 - i1 > i){
                             // on scrolling
                             svTopic.setVisibility(View.GONE);
-                            llSearchView.setVisibility(View.GONE);
 
 
                         }
