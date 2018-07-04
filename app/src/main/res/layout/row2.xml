@@ -54,19 +54,9 @@
         android:text="Description"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingTop="10pt"/>
+        android:paddingTop="10pt"
+        android:paddingBottom="10dp"/>
 
-    <TextView
-        android:id="@+id/tvRead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="8pt"
-        android:text="READ"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:onClick="read"/>
+
 
 </LinearLayout>

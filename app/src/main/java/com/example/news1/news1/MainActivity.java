@@ -1,7 +1,9 @@
 package com.example.news1.news1;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -99,7 +101,13 @@ public class MainActivity extends AppCompatActivity {
        //  topic = etSearch.getText().toString();
         svTopic = (SearchView) findViewById(R.id.svTopic);
         svTopic.setQueryHint("Search Topic..");
-
+        svTopic.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+                return true;
+            }
+        });
         svTopic.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -110,10 +118,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
+//                svTopic.setQuery(" ",false);
                 String topic = s;
-                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+                String bu = svTopic.getQuery().toString();
+                Log.e("Query",bu);
+                Log.e("Query2",svTopic.getQuery().toString());
+                if(svTopic.getQuery().toString().contains(bu))
+                {
+                    new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+
+                }
+//                new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&q=" + topic + "&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
                 return true;
             }
+
+
         });
 
 //        final EditText finalEtSearch = etSearch;
@@ -169,7 +188,14 @@ public class MainActivity extends AppCompatActivity {
                     Handler handler =  new Handler(MainActivity.this.getMainLooper());
                     handler.post( new Runnable(){
                         public void run(){
-                            Toast.makeText(MainActivity.this,"No Results",Toast.LENGTH_LONG).show();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("No Results")
+                                    .setCancelable(true);
+                            AlertDialog alert = builder.create();
+                            alert.show();
+
+//                            Toast.makeText(MainActivity.this,"No Results",Toast.LENGTH_LONG).show();
                          }
                     });
 
@@ -246,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
 
             newsAdapter adapter = new newsAdapter(getApplicationContext(),R.layout.row2, result);
             listView.setAdapter(adapter);
-            Handler handler =  new Handler(MainActivity.this.getMainLooper());
-            handler.post( new Runnable(){
-                public void run(){
+//            Handler handler =  new Handler(MainActivity.this.getMainLooper());
+//            handler.post( new Runnable(){
+//                public void run(){
                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                        @Override
                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -259,8 +285,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                        }
                    });
-                }
-            });
+//                }
+//            });
 
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
@@ -314,6 +340,9 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
         }
     }
 
@@ -355,7 +384,6 @@ public class MainActivity extends AppCompatActivity {
                // holder.tvPublishedAt =  (TextView) convertView.findViewById(R.id.tvPublishedAt);
                // holder.tvId =  (TextView) convertView.findViewById(R.id.tvId);
                 holder.tvName =  (TextView) convertView.findViewById(R.id.tvName);
-                holder.tvRead = (TextView) convertView.findViewById(R.id.tvRead);
                 convertView.setTag(holder);
             }else{
 
@@ -422,7 +450,6 @@ public class MainActivity extends AppCompatActivity {
             //private TextView tvPublishedAt;
            // private TextView tvId;
             private TextView tvName;
-            private TextView tvRead;
 
         }
 
@@ -463,9 +490,25 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void read(View view){
 
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
+        builder.setTitle("Exit?")
+                .setMessage("Are You Sure?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        MainActivity.super.onBackPressed();
+
+                    }
+                })
+                .setNegativeButton("No",null);
+        AlertDialog alert = builder.create();
+        alert.show();
 
     }
 
