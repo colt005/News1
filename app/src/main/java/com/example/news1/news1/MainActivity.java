@@ -65,9 +65,11 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private String topic;
     private TextView tvRead;
-
+    private String SpinnerItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent SpinnerIntent = new Intent();
+        SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
 
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
@@ -146,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+
+
 
 
 
@@ -283,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("url", uRl);
                         Log.e("urllldsf", (String) urllist.get(i));
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Swipe Right to go back.",Toast.LENGTH_LONG).show();
                        }
                    });
 //                }
