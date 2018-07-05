@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private String SpinnerItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent SpinnerIntent = new Intent();
-        SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
+
 
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
@@ -87,9 +86,16 @@ public class MainActivity extends AppCompatActivity {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.ic_launcher_background) // resource or drawable
                 .build();
+        Intent SpinnerIntent = getIntent();
+        SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
+        if(SpinnerItem == "everything") {
+            new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+        }else
+        {
+            new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&category="+ SpinnerItem +"&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
-
-        new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+        }
+//        new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
         listView = (ListView) findViewById(R.id.lvNews);
 
