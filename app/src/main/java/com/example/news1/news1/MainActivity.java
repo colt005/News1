@@ -19,6 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,6 +55,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v7.app.ActionBar;
+
 
 
 import static com.example.news1.news1.R.layout.activity_main;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
         setContentView(activity_main);
 
         // Create default options which will be used for every
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Intent SpinnerIntent = getIntent();
         SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
-        if(SpinnerItem == "everything") {
+        if(SpinnerItem.contains("everything")) {
             new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
         }else
         {
@@ -469,39 +474,37 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main_menu, menu);
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView =
+//                (SearchView) menu.findItem(R.id.search).getActionView();
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+//
+//        return true;
+//
+//    }
 
-        return true;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
 //        switch (item.getItemId()) {
 //
-//           // case R.id.action_refresh:
-//             //   String fin = "https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73";
-//               // Log.i("Final",fin);
-//             //   new JSONTask().execute("https://newsapi.org/v2/everything?q="+topic+"&sortBy=popularity&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-//
-//              //  new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=us&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-//                //break;
-//            //case R.id.action_app:
-//              //  break;
+//            case R.id.action_refresh:
+//                Intent intent = new Intent(getApplicationContext(),PrefActivity.class);
+//                startActivity(intent);
+//                finish();
+//                break;
+//            case R.id.action_app:
+//                break;
 //
 //        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onBackPressed()
