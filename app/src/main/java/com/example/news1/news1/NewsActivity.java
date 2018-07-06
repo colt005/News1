@@ -33,6 +33,7 @@ public class NewsActivity extends AppCompatActivity{
         Slidr.attach(this);
 
 
+
     }
 
     private class MyBrowser extends WebViewClient{
