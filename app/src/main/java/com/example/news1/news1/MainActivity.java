@@ -10,8 +10,12 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private String topic;
     private TextView tvRead;
     private String SpinnerItem;
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -160,6 +165,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
 
 
@@ -507,24 +519,28 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     @Override
-    public void onBackPressed()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
 
-        builder.setTitle("Exit?")
-                .setMessage("Are You Sure?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-                        MainActivity.super.onBackPressed();
+            builder.setTitle("Exit?")
+                    .setMessage("Are You Sure?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                })
-                .setNegativeButton("No",null);
-        AlertDialog alert = builder.create();
-        alert.show();
+                            MainActivity.super.onBackPressed();
 
+                        }
+                    })
+                    .setNegativeButton("No", null);
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        }
     }
 
 

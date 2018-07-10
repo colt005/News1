@@ -30,5 +30,7 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.r0adkll:slidableactivity:2.0.6'
+    implementation 'com.android.support:design:26.1.0'
+
 
 }
