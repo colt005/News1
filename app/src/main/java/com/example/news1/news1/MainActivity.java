@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&category="+ SpinnerItem +"&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
         }
-//        new JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
         listView = (ListView) findViewById(R.id.lvNews);
 
