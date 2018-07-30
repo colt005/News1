@@ -35,7 +35,7 @@ String item;
         btnPref.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),MainActivity.class);
+                Intent intent = new Intent(view.getContext(),tabbed.class);
                 String item2 = item;
                 intent.putExtra("SelectedItem",item2);
                 startActivity(intent);

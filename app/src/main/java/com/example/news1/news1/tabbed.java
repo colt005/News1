@@ -63,7 +63,28 @@ import static com.example.news1.news1.R.layout.activity_main;
 
 public class tabbed extends AppCompatActivity {
     final ArrayList urllist = new ArrayList();
-    SearchView svTopic;
+
+
+    // new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
+
+
+    //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoList.txt");
+
+
+    // Button btSearch = null;
+
+
+    //  btSearch = (Button) findViewById(R.id.btSearch);
+
+
+    // EditText etSearch = null;
+
+
+    //  etSearch = (EditText) findViewById(R.id.etSearch);
+
+
+    //  topic = etSearch.getText().toString();
+    SearchView svTopic = (SearchView) findViewById(R.id.svTopic);
     private String total;
     private ListView listView;
     private String topic;
@@ -105,29 +126,21 @@ public class tabbed extends AppCompatActivity {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.ic_launcher_background) // resource or drawable
                 .build();
-//        Intent SpinnerIntent = getIntent();
-//        SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
-//        if (SpinnerItem.contains("everything")) {
-//            new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-//        } else {
-//            new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&category=" + SpinnerItem + "&apiKey=9973f0618b1f4f9483f05e9f95885a73");
-//
-//        }
-                new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+        Intent SpinnerIntent = getIntent();
+        SpinnerItem = SpinnerIntent.getStringExtra("SelectedItem");
+        if (SpinnerItem.contains("everything")) {
+            new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+        } else {
+            new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&category=" + SpinnerItem + "&apiKey=9973f0618b1f4f9483f05e9f95885a73");
+
+        }
+//                new tabbed.JSONTask().execute("https://newsapi.org/v2/top-headlines?country=in&apiKey=9973f0618b1f4f9483f05e9f95885a73");
 
 
         listView = (ListView) findViewById(R.id.lvNews);
 
 
-        // new JSONTask().execute("https://newsapi.org/v2/top-headlines?sources=associated-press&apiKey=9973f0618b1f4f9483f05e9f95885a73"); // + R.string.API_KEY);
-        //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoList.txt");
-        // Button btSearch = null;
-        //  btSearch = (Button) findViewById(R.id.btSearch);
-        // EditText etSearch = null;
-        //  etSearch = (EditText) findViewById(R.id.etSearch);
-        //  topic = etSearch.getText().toString();
-        svTopic = (SearchView) findViewById(R.id.svTopic);
-       svTopic.setQueryHint("Search Topic..");
+               svTopic.setQueryHint("Search Topic..");
         svTopic.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
