@@ -14,8 +14,8 @@ env:
  - ANDROID_BUILD_TOOLS=27.0.1
 
 before_install:
-        - echo yes | sdkmanager "build-tools;27.0.1"
         - chmod +x gradlew
+        - echo yes | sdkmanager "build-tools;27.0.1"
         - touch local.properties  
 branches:
         only:
