@@ -9,6 +9,9 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses && yes
+        - echo “y”
+        - echo “y”
+        - echo “y”
         - yes | sdkmanager "platforms;android-28"
         - echo “y”
         - chmod +x gradlew
