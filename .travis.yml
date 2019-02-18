@@ -9,6 +9,7 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses
+        - echo “Y”
         - chmod +x gradlew
         - touch local.properties
 branches:
