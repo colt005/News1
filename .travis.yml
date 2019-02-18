@@ -10,6 +10,11 @@ android:
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses
         - echo “Y”
+        - echo “Y”
+        - echo “Y”
+        - echo “Y”
+        - echo “Y”
+        - echo “Y”
         - chmod +x gradlew
         - touch local.properties
 branches:
