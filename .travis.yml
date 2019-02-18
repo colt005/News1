@@ -15,7 +15,7 @@ env:
 
 before_install:
         - chmod +x gradlew
-        - yes | sdkmanager --licenses
+       
         - touch local.properties  
         
         - echo y | android update sdk -u -a -t tools
