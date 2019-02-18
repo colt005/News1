@@ -3,13 +3,18 @@ android:
   components:
     - tools
     - android-27
-    - build-tools-27.0.3
+    - build-tools-27.0.1
   licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+env:
+ global:
+ - ANDROID_API=27
+ - ANDROID_BUILD_TOOLS=27.0.1
+
 before_install:
-        
+        - echo yes | sdkmanager "build-tools;27.0.1"
         - chmod +x gradlew
         - touch local.properties  
 branches:
