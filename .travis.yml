@@ -8,6 +8,7 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 before_install:
+        - sdkmanager --update && yes | sdkmanager --licenses
         - chmod +x gradlew
         - touch local.properties
 branches:
