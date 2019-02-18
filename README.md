@@ -1,6 +1,6 @@
 # News 1
 
-[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)[![MIT license]
+[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 [Download](https://github.com/colt005/News1/releases/download/v0.2-alpha/app-debug.apk)
 
