@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
+
 [Download](https://github.com/colt005/News1/releases/download/v0.2-alpha/app-debug.apk)
 
 A simple News app that uses [News API](https://newsapi.org/) to display News.
