@@ -9,11 +9,12 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses && yes
-        - run: sdkmanager --install "ndk-bundle" && yes | sdkmanager --licenses
+        - yes | sdkmanager "platforms;android-28"
         - echo “y”
         - chmod +x gradlew
         - echo “y”
         - touch local.properties
+        - echo “y”
         - echo “y”
 branches:
         only:
