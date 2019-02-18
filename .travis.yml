@@ -9,12 +9,7 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses && yes
-        - echo “Y”
-        - echo “Y”
-        - echo “Y”
-        - echo “Y”
-        - echo “Y”
-        - echo “Y”
+        - echo “y” | /opt/android/sdk/tools/bin/sdkmanager “build-tools;26.0.2”
         - chmod +x gradlew
         - touch local.properties
 branches:
