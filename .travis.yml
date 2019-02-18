@@ -9,40 +9,13 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses && yes
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
         - yes | sdkmanager "platforms;android-28"
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
+        - echo yes | sdkmanager "tools"
+        - echo yes | sdkmanager "platforms;android-27" # Latest platform required by SDK tools
+        - echo yes | sdkmanager "extras;android;m2repository"
+        - echo yes | sdkmanager "extras;google;m2repository"
         - chmod +x gradlew
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - touch local.properties
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
-        - echo “y”
+        - touch local.properties  
 branches:
         only:
                 - master
