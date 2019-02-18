@@ -8,7 +8,7 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 before_install:
-        - sdkmanager --update && yes | sdkmanager --licenses
+        - sdkmanager --update && yes | sdkmanager --licenses && yes
         - echo “Y”
         - echo “Y”
         - echo “Y”
