@@ -1,6 +1,6 @@
 # News 1
 
-[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1.svg?branch=master)
+[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1)
 
 
 [Download](https://github.com/colt005/News1/releases/download/v0.2-alpha/app-debug.apk)
