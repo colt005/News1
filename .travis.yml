@@ -15,7 +15,7 @@ env:
 
 before_install:
         - chmod +x gradlew
-        - echo yes | sdkmanager "build-tools;27.0.1"
+        - yes | sdkmanager --licenses
         - touch local.properties  
 branches:
         only:
