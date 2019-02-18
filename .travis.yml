@@ -9,9 +9,12 @@ android:
     - 'google-gdk-license-.+'
 before_install:
         - sdkmanager --update && yes | sdkmanager --licenses && yes
-        - echo “y” | /opt/android/sdk/tools/bin/sdkmanager “build-tools;26.0.2”
+        - run: sdkmanager --install "ndk-bundle" && yes | sdkmanager --licenses
+        - echo “y”
         - chmod +x gradlew
+        - echo “y”
         - touch local.properties
+        - echo “y”
 branches:
         only:
                 - master
