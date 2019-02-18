@@ -1,7 +1,6 @@
 # News 1
 
-[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
-
+[![Build Status](https://travis-ci.org/colt005/News1.svg?branch=master)](https://travis-ci.org/colt005/News1) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
 
